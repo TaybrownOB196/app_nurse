@@ -55,7 +55,6 @@ class ModelsTestCase(TestCase):
         model = AppMetric()
         model.id = 1337
         model.tags = {}
-        model.fields = {}
         model.createDate = datetime.now()
         model.appId = 90210
         model.value = 90059

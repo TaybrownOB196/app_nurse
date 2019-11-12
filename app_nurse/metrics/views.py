@@ -72,7 +72,10 @@ class ApplicationView(View):
             app.appName = json_body['applicationName']
             app.description = json_body['applicationDescription']
             new_app = app_srvc.save(app)
-            return HttpResponse(content=json.dumps(new_app, cls=CustomEncoder), status=201)
+            if new_app:
+                return HttpResponse(content=json.dumps(new_app, cls=CustomEncoder), status=201)
+        
+        return HttpResponse(content='server error', status=500)
 
 
     def get(self, request: HttpRequest):
@@ -91,3 +94,4 @@ class ApplicationView(View):
             return HttpResponse(content=b'no content', status=204)
         else:
             return HttpResponse(content=json.dumps(results, cls=CustomEncoder), status=200)
+            

@@ -1,0 +1,5 @@
+manage.py
+Dockerfile
+__pycache__/
+database/
+docker-compose.yaml

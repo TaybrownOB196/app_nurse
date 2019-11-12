@@ -17,7 +17,7 @@ class AppService:
         return None
 
     def readById(self, appId):
-        query_str = 'call temp.getAppServicesById(%s);' % (appId)
+        query_str = 'call temp.getAppServicesById(%d);' % (int(appId))
         count, data = self.crud_helper.execute_sproc(query_str)
         print(count)
         if count > 0:
@@ -51,7 +51,7 @@ class MetricsService:
         self.crud_helper = crud_helper
 
     def read(self, appId):
-        query_str = 'call temp.getMetricsByAppId(%s);' % (appId)
+        query_str = 'call temp.getMetricsByAppId(%d);' % (int(appId))
         count, data = self.crud_helper.execute_sproc(query_str)
         if count > 0:
             print(data)
@@ -60,7 +60,7 @@ class MetricsService:
         return None
 
     def readLatest(self, appId, metricId):
-        query_str = 'call temp.getMetricsByAppIdPastMetricId(%s, %s);' % (appId, metricId)
+        query_str = 'call temp.getMetricsByAppIdPastMetricId(%d, %d);' % (int(appId), int(metricId))
         count, data = self.crud_helper.execute_sproc(query_str)
         if count > 0:
             return data
@@ -68,7 +68,8 @@ class MetricsService:
         return None
 
     def save(self, appId, metric):
-        query_str = 'call temp.saveMetric(%s, \'%s\', \'%s\', \'%s\');' % (appId, metric.value, metric.dataType, metric.tags)
+        query_str = 'call temp.saveMetric(%d, \'%s\', \'%s\', \'%s\');' % (int(appId), metric.value, metric.dataType, metric.tags)
+        print(query_str)
         count, data = self.crud_helper.execute_sproc(query_str)
         if count == 1:
             metric.id = data[0]['id']

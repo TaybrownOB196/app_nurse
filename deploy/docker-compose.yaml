@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  database:
+    container_name: app_nurse_db
+    build:
+      context: ../database/
+      dockerfile: Dockerfile
+    image: app_nurse_db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: temp
+    networks:
+      - app_nurse_network
+    volumes:
+      - metrics_db:/var/lib/mysql
+
+  webserver:
+    container_name: app_nurse_api
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: app_nurse_api:latest
+    ports: 
+      - "8000:80"
+    networks:
+      - app_nurse_network
+
+
+networks:
+  app_nurse_network:
+    driver: bridge
+
+volumes:
+  metrics_db:

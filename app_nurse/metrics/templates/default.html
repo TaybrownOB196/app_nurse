@@ -1,0 +1,24 @@
+<!doctype html>
+    <html>
+        <head>
+            <meta charset='utf-8'>
+            <title>App Nurse</title>
+            {% load static %}
+            <link rel='stylesheet' href="{% static "styles.css" %}"></link>
+            <link rel='stylesheet' href="{% static "default.css" %}"></link>
+
+        </head>
+
+        <body>
+            <h1>App Nurse</h1>
+            <div id='nurse_img'></div>
+            <div>
+                <h3>Applications</h3>
+                <ul>
+                    {% for app in applications %}
+                        <a href='applications/?appId={{ app.id }}'> {{ app.appName }} </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </body>
+    </html>
